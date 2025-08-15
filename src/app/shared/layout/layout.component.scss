@@ -1,0 +1,113 @@
+/* layout.component.scss */
+
+/* Styles du conteneur du composant */
+:host {
+  display: flex;
+  min-height: 100vh; /* Permet au composant de prendre toute la hauteur de la fenêtre */
+  flex-direction: column;
+  background-color: #f0f2f5 !important;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Le contenu principal prend tout l'espace disponible */
+main {
+  flex: 1 0 auto; /* Permet à l'élément <main> de s'étirer et de pousser le footer vers le bas */
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Styles du header */
+nav.blue.darken-2 {
+  background-color: #1976d2 !important;
+}
+
+nav .brand-logo {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+nav .brand-logo .logo-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+nav .brand-logo .logo-container img {
+  width: auto;
+  height: 80%;
+  display: block;
+}
+
+nav .brand-logo .app-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* Styles du footer */
+.page-footer.blue.darken-4 {
+  background-color: #0d47a1 !important;
+  padding-top: 20px;
+  flex-shrink: 0; /* CORRECTION : Empêche le footer de se réduire et le maintient en bas */
+}
+
+.page-footer .container {
+  padding-bottom: 20px;
+}
+
+.page-footer .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.page-footer h5.white-text {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.page-footer p.grey-text.text-lighten-4 {
+  margin-bottom: 1rem;
+}
+
+.page-footer ul.social-links {
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.page-footer ul.social-links li {
+  margin-right: 0;
+}
+
+.page-footer ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.page-footer ul li a.grey-text.text-lighten-3 {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ccc;
+}
+
+.page-footer ul li a.grey-text.text-lighten-3:hover {
+  color: #fff;
+}
+
+.page-footer .footer-copyright {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  text-align: center;
+}
+
+.page-footer .footer-copyright .container {
+  padding: 0;
+}

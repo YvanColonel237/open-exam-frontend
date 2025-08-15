@@ -1,0 +1,87 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel teal lighten-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">Tableau de bord Administrateur</h5>
+        <p class="white-text" style="font-style: italic;">Aperçu des statistiques clés de la plateforme.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des données...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="adminSummary">
+    <div class="col s12 m6 l4">
+      <div class="card-panel white center-align hoverable">
+        <i class="material-icons large blue-text text-darken-2">school</i>
+        <h5 class="blue-text text-darken-2">Professeurs</h5>
+        <h2 class="blue-text text-darken-2" style="font-weight: 500;">{{ adminSummary.totalProfessors }}</h2>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <div class="card-panel white center-align hoverable">
+        <i class="material-icons large red-text text-darken-2">person_add</i>
+        <h5 class="red-text text-darken-2">Candidats</h5>
+        <h2 class="red-text text-darken-2" style=" font-weight: 500;">{{ adminSummary.totalCandidates }}</h2>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <div class="card-panel white center-align hoverable">
+        <i class="material-icons large green-text text-darken-2">admin_panel_settings</i>
+        <h5 class="green-text text-darken-2">Administrateurs</h5>
+        <h2 class="green-text text-darken-2" style="font-weight: 500;">{{ adminSummary.totalAdministrateurs }}</h2>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <div class="card-panel white center-align hoverable">
+        <i class="material-icons large amber-text text-darken-4">assignment</i>
+        <h5 class="amber-text text-darken-4">Examens</h5>
+        <h2 class="amber-text text-darken-4" style="font-weight: 500;">{{ adminSummary.totalExams }}</h2>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <div class="card-panel white center-align hoverable">
+        <i class="material-icons large cyan-text text-darken-2">description</i>
+        <h5 class="cyan-text text-darken-2">Épreuves</h5>
+        <h2 class="cyan-text text-darken-2" style="font-weight: 500;">{{ adminSummary.totalEpreuves }}</h2>
+      </div>
+    </div>
+
+    <div class="col s12 m6 l4">
+      <div class="card-panel white center-align hoverable">
+        <i class="material-icons large purple-text text-darken-2">grading</i>
+        <h5 class="purple-text text-darken-2">Corrections</h5>
+        <h2 class="purple-text text-darken-2" style="font-weight: 500;">{{ adminSummary.totalCorrections }}</h2>
+      </div>
+    </div>
+  </div>
+</div>

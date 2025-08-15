@@ -1,0 +1,96 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+      <!-- En-tête de la page -->
+      <div class="card-panel z-depth-2 blue darken-2 white-text center-align">
+        <i class="material-icons large">person_add</i>
+        <h4 style="font-weight: 300; margin-bottom: 0;">Ajouter un nouveau professeur</h4>
+        <p style="font-style: italic; margin-top: 0;">Remplissez les informations pour créer un nouveau compte professeur.</p>
+      </div>
+
+      <!-- Indicateurs de chargement et d'erreur/succès -->
+      <div *ngIf="isLoading" class="card-panel center-align">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+        <p class="flow-text grey-text">Création en cours...</p>
+      </div>
+
+      <div *ngIf="error" class="card-panel red lighten-1 white-text center-align">
+        <i class="material-icons left">error_outline</i>{{ error }}
+      </div>
+
+      <div *ngIf="successMessage" class="card-panel green lighten-1 white-text center-align">
+        <i class="material-icons left">check_circle_outline</i>{{ successMessage }}
+      </div>
+
+      <!-- Formulaire de création dans une carte -->
+      <div class="card" *ngIf="!isLoading">
+        <div class="card-content">
+          <form [formGroup]="professeurForm" (ngSubmit)="onSubmit()" style="margin-top: 20px;">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">email</i>
+                <input id="email" type="email" formControlName="email" class="validate">
+                <label for="email">Email de connexion</label>
+                <div *ngIf="professeurForm.get('email')?.invalid && (professeurForm.get('email')?.dirty || professeurForm.get('email')?.touched)" class="red-text">
+                  <span *ngIf="professeurForm.get('email')?.errors?.['required']">L'email est requis.</span>
+                  <span *ngIf="professeurForm.get('email')?.errors?.['email']">Veuillez entrer un email valide.</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12 m6">
+                <i class="material-icons prefix">school</i>
+                <input id="specialite" type="text" formControlName="specialiteProfesseur" class="validate">
+                <label for="specialite">Spécialité</label>
+                <div *ngIf="professeurForm.get('specialiteProfesseur')?.invalid && (professeurForm.get('specialiteProfesseur')?.dirty || professeurForm.get('specialiteProfesseur')?.touched)" class="red-text">
+                  <span *ngIf="professeurForm.get('specialiteProfesseur')?.errors?.['required']">La spécialité est requise.</span>
+                </div>
+              </div>
+              <div class="input-field col s12 m6">
+                <i class="material-icons prefix">power_settings_new</i>
+                <select id="statut" formControlName="statutProfesseur" class="browser-default">
+                  <option value="ACTIF">Actif</option>
+                  <option value="INACTIF">Inactif</option>
+                  <option value="EN_CONGE">En congé</option>
+                </select>
+                <label for="statut" class="active" style="position: relative; top: -14px;">Statut</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">description</i>
+                <textarea id="biographie" formControlName="biographieProfesseur" class="materialize-textarea"></textarea>
+                <label for="biographie">Biographie (optionnel)</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12 right-align" style="margin-top: 30px;">
+                <button type="button" (click)="onCancel()" class="btn waves-effect waves-light grey darken-1">
+                  <i class="material-icons left">cancel</i>Annuler
+                </button>
+                <button type="submit" [disabled]="professeurForm.invalid" class="btn waves-effect waves-light blue darken-2" style="margin-left: 10px;">
+                  <i class="material-icons left">add_circle_outline</i>Créer le professeur
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

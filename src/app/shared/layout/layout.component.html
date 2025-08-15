@@ -1,0 +1,125 @@
+<nav class="blue darken-2">
+  <div class="nav-wrapper container">
+    <a routerLink="/" class="brand-logo">
+      <div class="logo-container">
+        <img src="assets/Capture.PNG" alt="ISTC Logo" height="40">
+      </div>
+      <span class="app-title">OpenExamCM</span>
+    </a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <ng-container *ngIf="isLoggedIn$ | async">
+        <ng-container *ngIf="(userType$ | async) === 'ADMINISTRATEUR'">
+          <li><a routerLink="/admin/dashboard"><i class="material-icons left">dashboard</i>Tableau de bord</a></li>
+          <li>
+            <a class="dropdown-trigger" href="#!" data-target="dropdown-admin-desktop">
+              <i class="material-icons left">settings</i>Gestion<i class="material-icons right">arrow_drop_down</i>
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="(userType$ | async) === 'PROFESSEUR'">
+          <li><a routerLink="/professeur/dashboard"><i class="material-icons left">dashboard</i>Mon Tableau de bord</a></li>
+          <li><a routerLink="/professeurs/profile"><i class="material-icons left">person</i>Mon Profil</a></li>
+          <li><a routerLink="/epreuves"><i class="material-icons left">assignment</i>Mes Épreuves</a></li>
+          <li><a routerLink="/corrections/list"><i class="material-icons left">check_circle_outline</i>Mes Corrections</a></li>
+        </ng-container>
+        <ng-container *ngIf="(userType$ | async) === 'CANDIDAT'">
+          <li><a routerLink="/epreuves"><i class="material-icons left">assignment</i>Liste des Épreuves</a></li>
+          <li><a routerLink="/candidats/profile"><i class="material-icons left">person</i>Mon Profil</a></li>
+          <li><a routerLink="/candidat/telechargements"><i class="material-icons left">history</i>Historique</a></li>
+        </ng-container>
+        <li><a (click)="logout()"><i class="material-icons left">exit_to_app</i>Déconnexion</a></li>
+      </ng-container>
+      <ng-container *ngIf="!(isLoggedIn$ | async)">
+        <li><a routerLink="/login"><i class="material-icons left">person_outline</i>Connexion</a></li>
+        <li><a routerLink="/signup"><i class="material-icons left">person_add</i>Inscription</a></li>
+      </ng-container>
+    </ul>
+  </div>
+</nav>
+
+<ul id="dropdown-admin-desktop" class="dropdown-content">
+  <li><a routerLink="/admin/professeurs"><i class="material-icons left">group</i>Professeurs</a></li>
+  <li><a routerLink="/admin/candidats"><i class="material-icons left">person</i>Candidats</a></li>
+  <li><a routerLink="/admin/examens"><i class="material-icons left">school</i>Examens</a></li>
+  <li class="divider"></li>
+  <li><a routerLink="/admin/filieres"><i class="material-icons left">business</i>Filières</a></li>
+  <li class="divider"></li>
+  <li><a routerLink="/admin/epreuves"><i class="material-icons left">assignment</i>Épreuves</a></li>
+  <li><a routerLink="/admin/corrections"><i class="material-icons left">check_circle_outline</i>Corrections</a></li>
+  <li class="divider"></li>
+  <li><a routerLink="/admin/journal-telechargements"><i class="material-icons left">history</i>Journal</a></li>
+</ul>
+
+<ul class="sidenav" id="mobile-demo">
+  <ng-container *ngIf="isLoggedIn$ | async">
+    <ng-container *ngIf="(userType$ | async) === 'ADMINISTRATEUR'">
+      <li><a routerLink="/admin/dashboard"><i class="material-icons">dashboard</i>Tableau de bord Admin</a></li>
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="dropdown-admin-mobile">
+          <i class="material-icons">settings</i>Gestion<i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="(userType$ | async) === 'PROFESSEUR'">
+      <li><a routerLink="/professeur/dashboard"><i class="material-icons">dashboard</i>Mon Tableau de bord</a></li>
+      <li><a routerLink="/professeurs/profile"><i class="material-icons">person</i>Mon Profil</a></li>
+      <li><a routerLink="/epreuves"><i class="material-icons">assignment</i>Mes Épreuves</a></li>
+      <li><a routerLink="/corrections/list"><i class="material-icons">check_circle_outline</i>Mes Corrections</a></li>
+    </ng-container>
+    <ng-container *ngIf="(userType$ | async) === 'CANDIDAT'">
+      <li><a routerLink="/epreuves"><i class="material-icons">assignment</i>Liste des Épreuves</a></li>
+      <li><a routerLink="/candidats/profile"><i class="material-icons">person</i>Mon Profil</a></li>
+      <li><a routerLink="/candidat/telechargements"><i class="material-icons">history</i>Historique</a></li>
+    </ng-container>
+    <li><div class="divider"></div></li>
+    <li><a (click)="logout()"><i class="material-icons">exit_to_app</i>Déconnexion</a></li>
+  </ng-container>
+  <ng-container *ngIf="!(isLoggedIn$ | async)">
+    <li><a routerLink="/login"><i class="material-icons">person_outline</i>Connexion</a></li>
+    <li><a routerLink="/signup"><i class="material-icons">person_add</i>Inscription</a></li>
+  </ng-container>
+</ul>
+
+<ul id="dropdown-admin-mobile" class="dropdown-content">
+  <li><a routerLink="/admin/professeurs">Professeurs</a></li>
+  <li><a routerLink="/admin/candidats">Candidats</a></li>
+  <li><a routerLink="/admin/examens">Examens</a></li>
+  <li><a routerLink="/admin/filieres">Filières</a></li>
+  <li><a routerLink="/admin/epreuves">Épreuves</a></li>
+  <li><a routerLink="/admin/corrections">Corrections</a></li>
+  <li><a routerLink="/admin/journal-telechargements">Journal</a></li>
+</ul>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="page-footer blue darken-4">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">À propos de OpenExamCM</h5>
+        <p class="grey-text text-lighten-4">Votre plateforme de gestion des épreuves et corrections d'examen.</p>
+        <ul class="social-links">
+          <li><a class="white-text" href="#!"><i class="material-icons">facebook</i>Facebook</a></li>
+          <li><a class="white-text" href="#!"><i class="material-icons">twitter</i>Twitter</a></li>
+          <li><a class="white-text" href="#!"><i class="material-icons">linkedin</i>LinkedIn</a></li>
+        </ul>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Liens</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" routerLink="/epreuves">Liste des épreuves</a></li>
+          <li><a class="grey-text text-lighten-3" routerLink="/apropos">À propos</a></li>
+          <li><a class="grey-text text-lighten-3" routerLink="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container center-align">
+      © {{ '2024' }} OpenExamCM - Tous droits réservés.
+    </div>
+  </div>
+</footer>

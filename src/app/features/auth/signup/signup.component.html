@@ -1,0 +1,79 @@
+<nav class="blue darken-2">
+  <div class="nav-wrapper container">
+    <a routerLink="/" class="brand-logo">
+      <div class="logo-container">
+        <img src="assets/Capture.PNG" alt="ISTC Logo" height="40">
+      </div>
+      <span class="app-title">OpenExamCM</span>
+    </a>
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+    </ul>
+  </div>
+</nav>
+
+<main class="signup-main">
+  <div class="card-container">
+    <div class="card z-depth-4 animated fadeIn">
+      <div class="card-content">
+        <h4 class="card-title center-align orange-text text-darken-4">
+          <i class="material-icons">person_add</i>
+          Inscription
+        </h4>
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="email" type="email" formControlName="email" class="validate" placeholder="email@exemple.com">
+              <label for="email">Email</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password" type="password" formControlName="password">
+              <label for="password">Mot de passe</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12 center-align">
+              <button type="submit" class="btn btn-large waves-effect waves-light orange darken-4" [disabled]="signupForm.invalid">
+                S'inscrire
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-action center-align">
+        <a routerLink="/login" class="orange-text text-darken-4">Déjà inscrit ? Connectez-vous</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="page-footer blue darken-4">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">OpenExamCM</h5>
+        <p class="grey-text text-lighten-4">
+          Votre partenaire pour la gestion d'examens et l'accès aux ressources académiques au Cameroun.
+        </p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Liens utiles</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" routerLink="/apropos">À propos de nous</a></li>
+          <li><a class="grey-text text-lighten-3" routerLink="/faq">FAQ</a></li>
+          <li><a class="grey-text text-lighten-3" routerLink="/contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container center-align">
+      © 2025 ISTC-ISARE - Tous droits réservés
+    </div>
+  </div>
+</footer>

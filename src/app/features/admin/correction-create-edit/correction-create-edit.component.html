@@ -1,0 +1,113 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel teal lighten-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">{{ isEditMode ? 'Modifier une Correction' : 'Ajouter une Correction' }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des données...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error">
+    <div class="col s12 m8 offset-m2">
+      <div class="card-panel white z-depth-1">
+        <form [formGroup]="correctionForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="input-field col s12">
+              <select formControlName="codeEpreuve" id="codeEpreuve">
+                <option value="" disabled selected>Choisir une épreuve</option>
+                <option *ngFor="let epreuve of epreuves" [ngValue]="epreuve.codeEpreuve">{{ epreuve.codeEpreuve }}</option>
+              </select>
+              <label for="codeEpreuve" class="active">Épreuve concernée</label>
+              <div *ngIf="correctionForm.get('codeEpreuve')?.invalid && correctionForm.get('codeEpreuve')?.touched" class="red-text">
+                L'épreuve est requise.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="commentaire" class="materialize-textarea" formControlName="commentaire"></textarea>
+              <label for="commentaire" [class.active]="isEditMode || correctionForm.get('commentaire')?.value">Commentaires</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="file-field input-field col s12">
+              <div class="btn blue darken-2">
+                <span>Document</span>
+                <input type="file" (change)="onDocumentFileSelected($event)">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Choisir un document PDF/Word">
+              </div>
+              <div *ngIf="isEditMode && currentDocumentFileName" class="flow-text grey-text" style="margin-top: 10px;">
+                Document actuel : {{ currentDocumentFileName }}
+                <a (click)="downloadFile(currentDocumentFileName)" class="btn-small btn-flat waves-effect waves-light blue-text text-darken-2" style="margin-left: 10px;">
+                  <i class="material-icons left">cloud_download</i>Télécharger
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="file-field input-field col s12">
+              <div class="btn blue darken-2">
+                <span>Vidéo</span>
+                <input type="file" (change)="onVideoFileSelected($event)">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Choisir une vidéo">
+              </div>
+              <div *ngIf="isEditMode && currentVideoFileName" class="flow-text grey-text" style="margin-top: 10px;">
+                Vidéo actuelle : {{ currentVideoFileName }}
+                <a (click)="downloadFile(currentVideoFileName)" class="btn-small btn-flat waves-effect waves-light blue-text text-darken-2" style="margin-left: 10px;">
+                  <i class="material-icons left">cloud_download</i>Télécharger
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12 center-align">
+              <button class="btn waves-effect waves-light blue darken-2" type="submit" [disabled]="correctionForm.invalid">
+                <i class="material-icons left">save</i>
+                {{ isEditMode ? 'Modifier' : 'Créer' }}
+              </button>
+              <a routerLink="/admin/corrections" class="btn waves-effect waves-light grey darken-1" style="margin-left: 10px;">
+                <i class="material-icons left">cancel</i>
+                Annuler
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.scss */
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  //background-color: #333333 !important;
+}
+
+main {
+  flex: 1; // Permet à l'élément <main> de prendre tout l'espace disponible
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  // --- AJOUTEZ OU MODIFIEZ CETTE LIGNE ---
+  // Calculer la hauteur minimale pour le contenu principal
+  // Assurez-vous que cette valeur est ajustée à la hauteur réelle de votre navbar et footer
+  // Par exemple: 64px (navbar) + 180px (footer) = 244px
+  min-height: calc(100vh - 244px);
+  // N'hésitez pas à ajuster '244px' si votre navbar/footer sont plus hauts ou plus bas.
+  // Vous pouvez utiliser les outils de développement de votre navigateur pour mesurer.
+}
+
+// Styles Materialize pour les helpers de labels si besoin
+.input-field label.active {
+  transform: translateY(-14px) scale(0.8);
+  transform-origin: 0 0;
+}

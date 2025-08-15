@@ -1,0 +1,79 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel blue darken-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">Gestion des Filières</h5>
+      </div>
+      <a routerLink="/admin/filieres/create" class="btn-large waves-effect waves-light orange darken-4 right">
+        <i class="material-icons left">add</i>Ajouter une Filière
+      </a>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des filières...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error && filieres.length > 0">
+    <div class="col s12">
+      <table class="striped responsive-table z-depth-1">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom de la Filière</th>
+          <th>Code</th>
+          <th>Département</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let filiere of filieres">
+          <td>{{ filiere.idFiliere }}</td>
+          <td>{{ filiere.nomFiliere }}</td>
+          <td>{{ filiere.codeFiliere }}</td>
+          <td>{{ filiere.departement }}</td>
+          <td>
+            <a [routerLink]="['/admin/filieres/edit', filiere.idFiliere]" class="btn-floating waves-effect waves-light blue darken-2 tooltipped" data-position="top" data-tooltip="Modifier">
+              <i class="material-icons">edit</i>
+            </a>
+            <button (click)="deleteFiliere(filiere.idFiliere)" class="btn-floating waves-effect waves-light red darken-2 tooltipped" data-position="top" data-tooltip="Supprimer">
+              <i class="material-icons">delete</i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error && filieres.length === 0">
+    <div class="col s12 center-align">
+      <div class="card-panel grey lighten-3">
+        <span class="grey-text">Aucune filière trouvée.</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel z-depth-1">
+        <h4 class="center-align" style="margin: 0; font-weight: 300;">Liste des professeurs</h4>
+      </div>
+
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large waves-effect waves-light blue" routerLink="/admin/professeurs/create">
+          <i class="material-icons">add</i>
+        </a>
+      </div>
+
+      <div class="professors-list" *ngIf="(professeurs$ | async) as professeurs">
+        <div class="professor-card" *ngFor="let professeur of professeurs">
+          <div class="professor-info">
+            <h5 class="professor-name">{{ professeur.specialiteProfesseur }}</h5>
+            <p class="professor-email"><i class="material-icons left">email</i>{{ professeur.emailConnexion }}</p>
+            <p class="professor-status"><i class="material-icons left">label</i>Statut: {{ professeur.statutProfesseur }}</p>
+            <p class="professor-id"><small>ID: {{ professeur.idProfesseur }}</small></p>
+          </div>
+          <div class="professor-bio" *ngIf="professeur.biographieProfesseur">
+            <details>
+              <summary>Biographie</summary>
+              <p>{{ professeur.biographieProfesseur }}</p>
+            </details>
+          </div>
+
+          <div class="card-action">
+            <a [routerLink]="['/admin/professeurs/edit', professeur.idProfesseur]" class="btn-small green"><i class="material-icons">edit</i></a>
+            <button (click)="deleteProfesseur(professeur.idProfesseur)" class="btn-small red"><i class="material-icons">delete</i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

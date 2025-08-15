@@ -1,0 +1,74 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel teal lighten-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">Liste des Candidats</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des candidats...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error && candidats.length > 0">
+    <div class="col s12">
+      <table class="striped responsive-table z-depth-1">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let candidat of candidats">
+          <td>{{ candidat.idCandidat }}</td>
+          <td>{{ candidat.emailConnexion }}</td>
+          <td>{{ candidat.statutCandidat }}</td>
+          <td>
+            <a [routerLink]="['/admin/candidats/edit', candidat.idCandidat]" class="btn-small blue darken-1">
+              <i class="material-icons">edit</i>
+            </a>
+            <a (click)="deleteCandidat(candidat.idCandidat)" class="btn-small red darken-1">
+              <i class="material-icons">delete</i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error && candidats.length === 0">
+    <div class="col s12 center-align">
+      <div class="card-panel orange lighten-1">
+        <span class="white-text">Aucun candidat trouvé.</span>
+      </div>
+    </div>
+  </div>
+</div>

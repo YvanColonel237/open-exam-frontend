@@ -1,0 +1,81 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel teal lighten-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">Liste des Examens</h5>
+      </div>
+      <a routerLink="/admin/examens/create" class="btn-large waves-effect waves-light orange darken-4 right">
+        <i class="material-icons left">add</i>Ajouter un Examen
+      </a>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des examens...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error && examens.length > 0">
+    <div class="col s12">
+      <table class="striped responsive-table z-depth-1">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Titre</th>
+          <th>Date</th>
+          <th>Filière</th>
+          <th>Niveau</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let examen of examens">
+          <td>{{ examen.idExamen }}</td>
+          <td>{{ examen.libelleExamen }}</td>
+          <td>{{ examen.dateExamen }}</td>
+          <td>{{ examen.filiere.libelleFiliere }}</td>
+          <td>{{ examen.niveau.libelleNiveau }}</td>
+          <td>
+            <a [routerLink]="['/admin/examens/edit', examen.idExamen]" class="btn-small blue darken-1">
+              <i class="material-icons">edit</i>
+            </a>
+            <a (click)="deleteExamen(examen.idExamen)" class="btn-small red darken-1">
+              <i class="material-icons">delete</i>
+            </a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error && examens.length === 0">
+    <div class="col s12 center-align">
+      <div class="card-panel orange lighten-1">
+        <span class="white-text">Aucun examen trouvé.</span>
+      </div>
+    </div>
+  </div>
+</div>

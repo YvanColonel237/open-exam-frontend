@@ -1,0 +1,94 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel teal lighten-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">{{ isEditMode ? 'Modifier un Examen' : 'Ajouter un Examen' }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des données...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error">
+    <div class="col s12 m8 offset-m2">
+      <div class="card-panel white z-depth-1">
+        <form [formGroup]="examenForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="libelleExamen" type="text" formControlName="libelleExamen" class="validate">
+              <label for="libelleExamen" [class.active]="isEditMode || examenForm.get('libelleExamen')?.value">Titre de l'Examen</label>
+              <div *ngIf="examenForm.get('libelleExamen')?.invalid && examenForm.get('libelleExamen')?.touched" class="red-text">
+                Le titre est requis.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="dateExamen" type="date" formControlName="dateExamen" class="validate">
+              <label for="dateExamen" [class.active]="isEditMode || examenForm.get('dateExamen')?.value">Date de l'Examen</label>
+              <div *ngIf="examenForm.get('dateExamen')?.invalid && examenForm.get('dateExamen')?.touched" class="red-text">
+                La date est requise.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="filiere" type="number" formControlName="filiereId" class="validate">
+              <label for="filiere" [class.active]="isEditMode || examenForm.get('filiereId')?.value">ID de la Filière</label>
+              <div *ngIf="examenForm.get('filiereId')?.invalid && examenForm.get('filiereId')?.touched" class="red-text">
+                L'ID de la filière est requis et doit être un nombre.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="niveau" type="number" formControlName="niveauId" class="validate">
+              <label for="niveau" [class.active]="isEditMode || examenForm.get('niveauId')?.value">ID du Niveau</label>
+              <div *ngIf="examenForm.get('niveauId')?.invalid && examenForm.get('niveauId')?.touched" class="red-text">
+                L'ID du niveau est requis et doit être un nombre.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12 center-align">
+              <button class="btn waves-effect waves-light blue darken-2" type="submit" [disabled]="examenForm.invalid">
+                <i class="material-icons left">save</i>
+                {{ isEditMode ? 'Modifier' : 'Créer' }}
+              </button>
+              <a routerLink="/admin/examens" class="btn waves-effect waves-light grey darken-1" style="margin-left: 10px;">
+                <i class="material-icons left">cancel</i>
+                Annuler
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

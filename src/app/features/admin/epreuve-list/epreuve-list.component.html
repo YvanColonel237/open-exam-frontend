@@ -1,0 +1,135 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel blue darken-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">Liste des Épreuves</h5>
+      </div>
+      <a *ngIf="isAdmin" routerLink="/admin/epreuves/create" class="btn-large waves-effect waves-light orange darken-4 right">
+        <i class="material-icons left">add</i>Ajouter une Épreuve
+      </a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="input-field">
+        <i class="material-icons prefix">search</i>
+        <input id="search-input" type="text" [(ngModel)]="searchFilters.searchTerm" (input)="onFilterChange()">
+        <label for="search-input">Rechercher par code ou libellé</label>
+      </div>
+    </div>
+    <div class="col s12 m2">
+      <div class="input-field">
+        <select [(ngModel)]="searchFilters.annee" (change)="onFilterChange()">
+          <option [ngValue]="null">Toutes les années</option>
+          <option *ngFor="let annee of annees" [ngValue]="annee">{{ annee }}</option>
+        </select>
+        <label>Année</label>
+      </div>
+    </div>
+    <div class="col s12 m2">
+      <div class="input-field">
+        <select [(ngModel)]="searchFilters.idFiliere" (change)="onFilterChange()">
+          <option [ngValue]="null">Toutes les filières</option>
+          <option *ngFor="let filiere of filieres" [ngValue]="filiere.idFiliere">{{ filiere.nomFiliere }}</option>
+        </select>
+        <label>Filière</label>
+      </div>
+    </div>
+    <div class="col s12 m2">
+      <div class="input-field">
+        <select [(ngModel)]="searchFilters.idNiveau" (change)="onFilterChange()">
+          <option [ngValue]="null">Tous les niveaux</option>
+          <option *ngFor="let niveau of niveaux" [ngValue]="niveau.idNiveau">{{ niveau.nomNiveau }}</option>
+        </select>
+        <label>Niveau</label>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des épreuves...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error && epreuves.length > 0">
+    <div class="col s12">
+      <table class="striped responsive-table z-depth-1">
+        <thead>
+        <tr>
+          <th>Code Épreuve</th>
+          <th>Année</th>
+          <th>Examen</th>
+          <th>Matière</th>
+          <th>Filière</th>
+          <th>Niveau</th>
+          <th>Téléchargements</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let epreuve of epreuves">
+          <td>{{ epreuve.codeEpreuve }}</td>
+          <td>{{ epreuve.anneeEpreuve }}</td>
+          <td>{{ epreuve.examen?.libelleExamen }}</td>
+          <td>{{ epreuve.matiere?.libelleMatiere }} ({{ epreuve.matiere?.codeMatiere }})</td>
+          <td>{{ epreuve.filiere?.libelleFiliere }}</td>
+          <td>{{ epreuve.niveau?.nomNiveau }}</td>
+          <td>{{ epreuve.nombreTelechargements }}</td>
+          <td>
+            <ng-container *ngIf="isAdmin">
+              <a [routerLink]="['/admin/epreuves/edit', epreuve.codeEpreuve]" class="btn-floating waves-effect waves-light blue darken-2 tooltipped" data-position="top" data-tooltip="Modifier">
+                <i class="material-icons">edit</i>
+              </a>
+              <button (click)="deleteEpreuve(epreuve.codeEpreuve)" class="btn-floating waves-effect waves-light red darken-2 tooltipped" data-position="top" data-tooltip="Supprimer">
+                <i class="material-icons">delete</i>
+              </button>
+            </ng-container>
+
+            <button *ngIf="isAdmin" (click)="downloadEpreuve(epreuve.cheminFichier, epreuve.codeEpreuve)" class="btn-floating waves-effect waves-light green darken-2 tooltipped" data-position="top" data-tooltip="Télécharger le fichier">
+              <i class="material-icons">cloud_download</i>
+            </button>
+
+            <button *ngIf="isCandidat && epreuve.cheminFichier" (click)="downloadVideoForCandidat(epreuve)" class="btn-floating waves-effect waves-light blue tooltipped" data-position="top" data-tooltip="Télécharger la vidéo">
+              <i class="material-icons">video_file</i>
+            </button>
+
+            <button (click)="toggleFavorite(epreuve.codeEpreuve)" class="btn-floating waves-effect waves-light pink lighten-1 tooltipped" data-position="top" [attr.data-tooltip]="isFavorite(epreuve.codeEpreuve) ? 'Retirer des favoris' : 'Ajouter aux favoris'">
+              <i class="material-icons">{{ isFavorite(epreuve.codeEpreuve) ? 'favorite' : 'favorite_border' }}</i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error && epreuves.length === 0">
+    <div class="col s12 center-align">
+      <div class="card-panel grey lighten-3">
+        <span class="grey-text">Aucune épreuve trouvée.</span>
+      </div>
+    </div>
+  </div>
+</div>

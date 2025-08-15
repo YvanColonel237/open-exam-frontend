@@ -1,0 +1,81 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel teal lighten-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">Modifier un Candidat</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des données du candidat...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error">
+    <div class="col s12 m8 offset-m2">
+      <div class="card-panel white z-depth-1">
+        <form [formGroup]="candidatForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="input-field col s12">
+              <input formControlName="emailConnexion" id="emailConnexion" type="text" class="validate" [disabled]="true">
+              <label for="emailConnexion" class="active">Email de connexion</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input formControlName="dateInscription" id="dateInscription" type="text" class="validate" [disabled]="true">
+              <label for="dateInscription" class="active">Date d'inscription</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select #statutCandidat formControlName="statutCandidat" id="statutCandidat">
+                <option value="" disabled selected>Choisir un statut</option>
+                <option value="ACTIF">Actif</option>
+                <option value="INACTIF">Inactif</option>
+              </select>
+              <label for="statutCandidat">Statut du candidat</label>
+              <div *ngIf="candidatForm.get('statutCandidat')?.invalid && candidatForm.get('statutCandidat')?.touched" class="red-text">
+                Le statut est requis.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12 center-align">
+              <button class="btn waves-effect waves-light blue darken-2" type="submit" [disabled]="candidatForm.invalid">
+                Enregistrer
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

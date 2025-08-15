@@ -1,0 +1,94 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel teal lighten-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">{{ isEditMode ? 'Modifier une Filière' : 'Ajouter une Filière' }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des données...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error">
+    <div class="col s12 m8 offset-m2">
+      <div class="card-panel white z-depth-1">
+        <form [formGroup]="filiereForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="nomFiliere" type="text" formControlName="nomFiliere" class="validate">
+              <label for="nomFiliere" [class.active]="isEditMode || filiereForm.get('nomFiliere')?.value">Nom de la Filière</label>
+              <div *ngIf="filiereForm.get('nomFiliere')?.invalid && filiereForm.get('nomFiliere')?.touched" class="red-text">
+                Le nom de la filière est requis.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="codeFiliere" type="text" formControlName="codeFiliere" class="validate">
+              <label for="codeFiliere" [class.active]="isEditMode || filiereForm.get('codeFiliere')?.value">Code de la Filière</label>
+              <div *ngIf="filiereForm.get('codeFiliere')?.invalid && filiereForm.get('codeFiliere')?.touched" class="red-text">
+                Le code de la filière est requis.
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="description" formControlName="description" class="materialize-textarea"></textarea>
+              <label for="description" [class.active]="isEditMode || filiereForm.get('description')?.value">Description</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="niveauEtudeSpecifique" type="text" formControlName="niveauEtudeSpecifique" class="validate">
+              <label for="niveauEtudeSpecifique" [class.active]="isEditMode || filiereForm.get('niveauEtudeSpecifique')?.value">Niveau d'étude Spécifique</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="departement" type="text" formControlName="departement" class="validate">
+              <label for="departement" [class.active]="isEditMode || filiereForm.get('departement')?.value">Département</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12 center-align">
+              <button class="btn waves-effect waves-light blue darken-2" type="submit" [disabled]="filiereForm.invalid">
+                <i class="material-icons left">save</i>
+                {{ isEditMode ? 'Modifier' : 'Créer' }}
+              </button>
+              <a routerLink="/filieres" class="btn waves-effect waves-light grey darken-1" style="margin-left: 10px;">
+                <i class="material-icons left">cancel</i>
+                Annuler
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

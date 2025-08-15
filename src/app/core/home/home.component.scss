@@ -1,0 +1,102 @@
+/* Styles du composant home */
+.slider {
+  height: 300px; /* Nouvelle hauteur réduite */
+}
+.slider .slides {
+  background-color: #212121;
+}
+.slider .caption {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.slider .caption h3 {
+  font-weight: 600;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+.slider .caption h5 {
+  font-weight: 400;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* --- Styles corrigés pour les indicateurs en forme d'étoiles --- */
+.slider .indicators {
+  bottom: 25px;
+  text-align: center;
+}
+
+.slider .indicators .indicator-item {
+  background-color: transparent !important; /* Rendre le fond transparent */
+  border-radius: 0 !important; /* Supprimer la forme ronde */
+  height: auto !important;
+  width: auto !important;
+  margin: 0 8px !important;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.slider .indicators .indicator-item::before {
+  font-family: 'Material Icons';
+  content: 'star_border'; /* Étoile vide */
+  font-size: 24px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.5); /* Couleur de l'étoile inactive */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  display: block;
+}
+
+.slider .indicators .indicator-item.active::before {
+  content: 'star'; /* Étoile remplie */
+  color: #ffc107; /* Couleur jaune pour l'étoile active */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+/* --- Fin des styles corrigés --- */
+
+/* Sections de contenu */
+.section {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.icon-block {
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 8px;
+}
+.icon-block:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+.icon-block h5 {
+  font-weight: 500;
+  margin-top: 10px;
+}
+.icon-block p {
+  font-weight: 300;
+}
+.card-panel.blue.darken-2 {
+  background-color: #1976d2 !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-large.waves-effect.waves-light {
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+/* Typographie et couleurs */
+.blue-text.text-darken-2 {
+  color: #1976d2 !important;
+}
+.grey-text.text-darken-3 {
+  color: #424242 !important;
+}
+.light-blue-text.text-accent-4 {
+  color: #29b6f6 !important;
+}
+.deep-orange-text.text-accent-4 {
+  color: #ff7043 !important;
+}
+.teal-text.text-accent-4 {
+  color: #26a69a !important;
+}

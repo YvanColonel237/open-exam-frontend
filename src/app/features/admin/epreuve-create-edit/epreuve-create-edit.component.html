@@ -1,0 +1,137 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel teal lighten-2 center-align z-depth-2">
+        <h5 class="white-text" style="font-weight: 300;">{{ isEditMode ? 'Modifier une Épreuve' : 'Ajouter une Épreuve' }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isLoading">
+    <div class="col s12 center-align">
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <p class="flow-text grey-text">Chargement des données...</p>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="error">
+    <div class="col s12 center-align">
+      <div class="card-panel red lighten-1">
+        <span class="white-text">{{ error }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && !error">
+    <div class="col s12 m8 offset-m2">
+      <div class="card-panel white z-depth-1">
+        <form [formGroup]="epreuveForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="annee" type="number" formControlName="annee" class="validate">
+              <label for="annee" [class.active]="isEditMode || epreuveForm.get('annee')?.value">Année</label>
+              <div *ngIf="epreuveForm.get('annee')?.invalid && epreuveForm.get('annee')?.touched" class="red-text">
+                L'année est requise et doit être un nombre valide.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select formControlName="idExamen" id="idExamen" class="browser-default" M.FormSelect>
+                <option value="" disabled selected>Choisir un examen</option>
+                <option *ngFor="let examen of examens" [ngValue]="examen.idExamen">{{ examen.libelleExamen }}</option>
+              </select>
+              <label class="active" for="idExamen">Examen</label>
+              <div *ngIf="epreuveForm.get('idExamen')?.invalid && epreuveForm.get('idExamen')?.touched" class="red-text">
+                L'examen est requis.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select formControlName="idFiliere" id="idFiliere" class="browser-default" M.FormSelect>
+                <option value="" disabled selected>Choisir une filière</option>
+                <option *ngFor="let filiere of filieres" [ngValue]="filiere.idFiliere">{{ filiere.nomFiliere }}</option>
+              </select>
+              <label class="active" for="idFiliere">Filière</label>
+              <div *ngIf="epreuveForm.get('idFiliere')?.invalid && epreuveForm.get('idFiliere')?.touched" class="red-text">
+                La filière est requise.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select formControlName="idNiveau" id="idNiveau" class="browser-default" M.FormSelect>
+                <option value="" disabled selected>Choisir un niveau</option>
+                <option *ngFor="let niveau of niveaux" [ngValue]="niveau.idNiveau">{{ niveau.nomNiveau }}</option>
+              </select>
+              <label class="active" for="idNiveau">Niveau</label>
+              <div *ngIf="epreuveForm.get('idNiveau')?.invalid && epreuveForm.get('idNiveau')?.touched" class="red-text">
+                Le niveau est requis.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select formControlName="codeMatiere" id="codeMatiere" class="browser-default" M.FormSelect>
+                <option value="" disabled selected>Choisir une matière</option>
+                <option *ngFor="let matiere of matieres" [ngValue]="matiere.codeMatiere">{{ matiere.libelleMatiere }}</option>
+              </select>
+              <label class="active" for="codeMatiere">Matière</label>
+              <div *ngIf="epreuveForm.get('codeMatiere')?.invalid && epreuveForm.get('codeMatiere')?.touched" class="red-text">
+                La matière est requise.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="file-field input-field col s12">
+              <div class="btn blue darken-2">
+                <span>Fichier</span>
+                <input type="file" (change)="onFileSelected($event)">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Choisir un fichier">
+              </div>
+              <div *ngIf="isEditMode && currentFileName" class="flow-text grey-text" style="margin-top: 10px;">
+                Fichier actuel : {{ currentFileName }}
+              </div>
+              <div *ngIf="epreuveForm.get('file')?.invalid && epreuveForm.get('file')?.touched" class="red-text">
+                Un fichier est requis.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12 center-align">
+              <button class="btn waves-effect waves-light blue darken-2" type="submit" [disabled]="epreuveForm.invalid || !fileSelected">
+                <i class="material-icons left">save</i>
+                {{ isEditMode ? 'Modifier' : 'Créer' }}
+              </button>
+              <a routerLink="/admin/epreuves" class="btn waves-effect waves-light grey darken-1" style="margin-left: 10px;">
+                <i class="material-icons left">cancel</i>
+                Annuler
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

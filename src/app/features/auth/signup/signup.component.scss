@@ -1,0 +1,176 @@
+/* Styles généraux pour la page entière */
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Styles du header */
+nav.blue.darken-2 {
+  background-color: #1976d2 !important;
+}
+
+nav .brand-logo {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+nav .brand-logo .logo-container {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+nav .brand-logo .logo-container img {
+  width: auto;
+  height: 80%;
+  display: block;
+}
+
+nav .brand-logo .app-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+/* Le contenu principal de la page d'inscription */
+.signup-main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  background: #ff8c00;
+  background: linear-gradient(135deg, #ff8c00 0%, #ffbb00 100%);
+}
+
+.card-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.card-content {
+  padding: 30px;
+}
+
+.card-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+.card-title .material-icons {
+  font-size: 2.5rem;
+  margin-right: 10px;
+  color: #ff8c00;
+}
+
+.input-field {
+  margin-bottom: 20px;
+}
+
+.input-field label {
+  font-size: 1.1rem;
+  color: #555 !important;
+}
+
+.input-field input {
+  font-size: 1.1rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.input-field input:focus {
+  border-bottom: 2px solid #ff8c00 !important;
+  box-shadow: none !important;
+}
+
+.input-field input:focus + label {
+  color: #ff8c00 !important;
+}
+
+.error-message {
+  font-size: 0.9rem;
+  color: #d32f2f;
+  margin-top: 5px;
+}
+
+.btn-large {
+  font-weight: 700;
+  border-radius: 8px;
+  background-color: #ff8c00;
+  min-height: 50px;
+  line-height: 50px;
+}
+
+.btn-large:hover {
+  background-color: #e67a00 !important;
+}
+
+.preloader-wrapper.small.active .spinner-layer {
+  border-color: white;
+}
+
+.card-action {
+  border-top: 1px solid #eee;
+  padding: 20px;
+}
+
+.card-action a {
+  font-weight: 600;
+  color: #ff8c00 !important;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.card-action a:hover {
+  color: #e67a00 !important;
+}
+
+/* Styles du footer */
+.page-footer.blue.darken-4 {
+  background-color: #1976d2 !important;
+  padding-top: 20px;
+}
+.page-footer .footer-copyright {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+}
+.page-footer .social-links li {
+  display: inline-block;
+  margin-right: 15px;
+}
+.page-footer .social-links a {
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+.page-footer .social-links a i {
+  font-size: 1.2rem;
+  margin-right: 5px;
+}
+.white-text {
+  color: #ffffff;
+}
